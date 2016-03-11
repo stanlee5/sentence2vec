@@ -779,7 +779,7 @@ class Word2Vec(utils.SaveLoad):
 
 class Sent2Vec(utils.SaveLoad):
     def __init__(self, sentences, model_file=None, alpha=0.025, window=5, sample=0, seed=1,
-        workers=1, min_alpha=0.0001, sg=1, hs=1, negative=0, cbow_mean=0, iteration=1):
+        workers=1, min_alpha=0.0001, sg=1, hs=0, negative=1, cbow_mean=0, iteration=1):
         self.sg = int(sg)
         self.table = None # for negative sampling --> this needs a lot of RAM! consider setting back to None before saving
         self.alpha = float(alpha)
