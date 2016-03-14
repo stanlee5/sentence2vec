@@ -1,11 +1,16 @@
 #include <cstdio>
+#include <string>
+#include <algorithm>
 
-int main ()
+using namespace std;
+
+void label_text (string labelf, string textf, string outf)
 {
-	FILE *inlabel = fopen ("music_review_label.txt","r");
-	FILE *invec = fopen ("music_review_text.txt.vec","r");
+	FILE *inlabel = fopen (labelf.c_str(),"r");
+	FILE *invec = fopen (textf.c_str(),"r");
+	FILE *out = fopen (outf.c_str(),"w");
 
-	FILE *out = fopen ("music_train.txt","w");
+	printf ("%d %d %d\n",inlabel!=NULL, invec!=NULL, out!=NULL);
 
 	int label,cnt=0;
 	int n,d;
@@ -16,8 +21,6 @@ int main ()
 	for (int i=0;i<n;i++)
 	{
 		fscanf (inlabel, "%d",&label);
-		if (i%100==0)
-			printf ("\r%dc",cnt/100);
 
 		fprintf (out, "%d ",label);
 		fscanf (invec, "%s",temp);
@@ -29,5 +32,15 @@ int main ()
 		}
 		fprintf (out, "\n");
 	}
+	printf (">> finish : %s \n",outf.c_str());
 
+	fclose (inlabel);
+	fclose (invec);
+	fclose (out);
+}
+
+int main ()
+{
+	label_text ("review_music_train_label.txt", "review_music_train_text.txt.svec", "music_train.txt");
+	label_text ("review_music_test_label.txt" , "review_music_test_text.txt.svec" , "music_test.txt" );
 }
